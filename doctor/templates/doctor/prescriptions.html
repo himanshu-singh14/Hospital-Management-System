@@ -1,0 +1,26 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+    {% if user.profile.roles == 'doctor' %}
+        <a class="btn btn-secondary float-right my-3" href="{% url 'create-prescriptions' %}" role="button">Create Prescription</a>
+    {% endif %}
+
+    <h2 class='my-3'>Prescriptions </h2>
+
+    {% for pres in prescriptions %}
+
+        <div class="card my-4" style="width: 40rem;">
+            <div class="card-header">
+            {{pres.date|date:"d, M Y"}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">{{pres.symptoms}}</h5>
+                <p class="card-text">{{pres.prescription}}</p>
+                <p class="card-text">{{pres.patient}}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock content %}

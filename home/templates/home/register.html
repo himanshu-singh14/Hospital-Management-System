@@ -1,0 +1,15 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h3 class="my-3">Register</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{user_form.as_table}}
+            {{profile_form.as_table}}
+        </table>
+        <br>
+        {% comment %} <a class="btn btn-secondary  my-3 mr-3" href="{% url 'employee-list' %}" role="button">Back</a> {% endcomment %}
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+{% endblock content %}

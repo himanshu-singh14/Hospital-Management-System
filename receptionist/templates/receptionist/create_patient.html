@@ -1,0 +1,13 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<h3 class="my-3">Add Patient</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{patient_form.as_table}}
+        </table>
+        <br>
+        <button type="submit" class="btn btn-primary">Create Patient</button>
+    </form>
+{% endblock content %}
