@@ -13,7 +13,7 @@
   <body>
 
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Docmaed</a>
+  <a class="navbar-brand" href="#">Docmed</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -47,7 +47,7 @@
             </li>   
 
             <li class="nav-item">
-            <a class="nav-link" href="">Accounting</a>
+            <a class="nav-link" href="{% url 'accounting' %}">Accounting</a>
             </li>  
 
         {% endif %}
@@ -55,10 +55,10 @@
         {% if user.profile.roles == 'patient' %}
        
         <li class="nav-item">
-        <a class="nav-link" href="{% url 'appointments' %}">Your Appointment's</a>
+        <a class="nav-link" href="{% url 'patient-appointments' %}">Your Appointment's</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="">Invoice and Payments</a>
+        <a class="nav-link" href="{% url 'invoice-and-payments' %}">Invoice and Payments</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="">Medical History</a>

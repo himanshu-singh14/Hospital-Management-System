@@ -6,7 +6,6 @@ from django.urls import reverse
 from .models import Appointment
 from patient.models import Patient
 from patient.forms import PatientForm
-from doctor.models import Doctor
 
 # Create your views here.
 
@@ -57,9 +56,3 @@ def deletePatient(request, username=None):
         return render(request, 'receptionist/dashboard.html', context)
 
 
-def hrDashboard(request):
-    context = {}
-    context['docs'] = Doctor.objects.all()
-    context['all_docs'] = Doctor.objects.all().count()
-    context['all_pet'] = Patient.objects.all().count()
-    return render(request, 'receptionist/hr_dashboard.html', context)

@@ -4,8 +4,8 @@ from django.contrib.auth.models import User
 from django.urls import reverse, reverse_lazy
 from .forms import PatientForm
 from .models import Patient
-
-# Create your views here.
+from receptionist.models import Appointment
+from hr.models import Payment
 
 
 def patientProfile(request, username=None):
@@ -26,14 +26,16 @@ def patientProfile(request, username=None):
             return HttpResponseRedirect(reverse('home'))
 
 
-def appointments(request):
+def patientAppointments(request):
     context = {}
-    context['apps'] = Appointment.objects.filter(patient=user.username)
-    return render(request, 'patient/appointments.html', context)
+    context['apps'] = Appointment.objects.filter(doctor=request.user)
+    return render(request, 'patient/patient_appointments.html', context)
 
 
-def invoiveAndPayments(request):
-    pass
+def invoiceAndPayments(request):
+    context = {}
+    context['payments'] = Payment.objects.filter(patient=request.user)
+    return render(request, 'patient/invoice_payments.html', context)
 
 
 def medicalHistory(request):

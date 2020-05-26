@@ -14,5 +14,7 @@ class DoctorForm(forms.ModelForm):
     
     class Meta:
         model = Doctor
-        fields = ('name','phone','email','is_male','is_female','is_other','age',
-                'address','blood_group','medical_report','case_paper')
+        fields = ('name','phone','email','gender','age',
+                'address','status','salary','department')
+
+

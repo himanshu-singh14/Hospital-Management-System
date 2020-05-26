@@ -5,6 +5,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import UserForm, ProfileForm
 from django.urls import reverse
+from patient.models import Patient
+from doctor.models import Doctor
 
 # Create your views here.
 
@@ -44,18 +46,31 @@ def contact(request):
 # This API is for handle the signup page
 def register(request):
     if request.method == 'POST': 
+        print("1111111111111111111111")
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
-
         if user_form.is_valid() and profile_form.is_valid():
+            print("2222222222222222222222222")
             user = user_form.save()
             profile = profile_form.save(commit=False)
             profile.user = user
             profile.save()
+
+            if request.POST['roles'] == 'patient':
+                Patient.objects.create(user=user)
+            elif request.POST['roles'] == 'doctor':
+                Doctor.objects.create(user=user)
+            elif request.POST['roles'] == 'receptionist':
+                pass
+            else :
+                pass
+
             return HttpResponseRedirect(reverse('user-login'))
         else:
+            print("33333333333333333333333")
             return render(request, 'home/register.html', {'user_form': user_form})
     else:
+        print("44444444444444444444444")
         user_form = UserForm()
         profile_form = ProfileForm()
         context = {'user_form': user_form, 'profile_form': profile_form}

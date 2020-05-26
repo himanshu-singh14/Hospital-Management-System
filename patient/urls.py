@@ -3,7 +3,7 @@ from .views import *
 
 urlpatterns = [
     path('patient_profile/<slug:username>/', patientProfile, name='patient-profile'),
-    path('appointments/', appointments, name='appointments'),
-    path('invoive_and_payments/', invoiveAndPayments, name='invoive-and-payments'),
+    path('patient_appointments/', patientAppointments, name='patient-appointments'),
+    path('invoice_and_payments/', invoiceAndPayments, name='invoice-and-payments'),
     path('medical_history/', medicalHistory, name='medical-history'),
 ]

@@ -9,7 +9,7 @@ from .forms import PrescriptionForm
 
 # Create your views here.
 
-def appointments(request):
+def doctorAppointments(request):
     pass
 
 
@@ -32,9 +32,6 @@ def createPrescriptions(request):
         return render(request, 'doctor/create_prescriptions.html' , {'pres_form': pres_form})
 
 
-
-
-
 def doctorProfile(request, username=None):
     user1 = get_object_or_404(User, username=username)
     patient = get_object_or_404(Patient, user__username=user1)  
@@ -42,18 +39,14 @@ def doctorProfile(request, username=None):
     print(user1)
     print(patient)
     if request.method == 'POST':
-        print("111111")
         patient_form = PatientForm(request.POST, instance=patient)
         if patient_form.is_valid():
-            print("2222222")
             patient_form.save()
             return HttpResponseRedirect(reverse('home'))
         else:
-            print("33333")
             return render(request, 'doctor/profile.html', {'doctor_form': patient_form})
     else:
         if user1.username == patient.user.username:
-            print('99999999999999999999999')
             patient_form = PatientForm(instance=patient)
             return render(request, 'doctor/profile.html', {'doctor_form': patient_form})
         else:

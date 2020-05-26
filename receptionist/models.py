@@ -6,8 +6,8 @@ from doctor.models import Doctor
 
 class Appointment(models.Model):
     date_time = models.DateTimeField(auto_now_add=True)
-    doctor = models.ForeignKey(Patient, null=True, blank=True, on_delete=models.CASCADE)
-    patient = models.ForeignKey(Doctor, null=True, blank=True, on_delete=models.CASCADE)
+    doctor = models.ForeignKey(Doctor, null=True, blank=True, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, null=True, blank=True, on_delete=models.CASCADE)
     st = (('pending',"PENDING"),('completed',"COMPLETED"))
     status = models.CharField("Status :", max_length=10, choices=st, default='pending')
 

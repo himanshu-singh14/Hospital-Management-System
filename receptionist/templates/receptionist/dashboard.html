@@ -76,15 +76,7 @@
                     <tr>
                         <td>{{patient.name}}</td>
                         <td>{{patient.phone}}</td>
-                        {% if patient.is_male %}
-                            <td>Male</td>
-                        {% endif %}
-                        {% if patient.is_female %}
-                            <td>Female</td>
-                        {% endif %}
-                        {% if patient.is_other %}
-                            <td>Others</td>
-                        {% endif %}
+                        <td>{{patient.gender}}</td>
                         <td>{{patient.age}}</td>
                         <td><a class="btn btn-warning btn-sm" href="{% url 'patient-profile' patient.user.username %}" role="button">Update</a></td>
                         <td><a class="btn btn-danger btn-sm" href="{% url 'delete-patient' user.username %}" role="button">Remove</a></td>

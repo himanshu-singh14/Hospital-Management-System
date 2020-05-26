@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 
-# Create your models here.
 
 # This model is for our contact page in which we take input from users and store in database
 class Contact(models.Model):
@@ -16,8 +15,8 @@ class Contact(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    role = (('doctor',"DOCTOR"),('patient',"PATIENT"))
-    roles = models.CharField("Register as", max_length=10, choices=role, default='doctor')
+    role = (('patient',"PATIENT"),('doctor',"DOCTOR"),('hr',"HR"),('receptionist',"RECEPTIONIST"))
+    roles = models.CharField("Register as", max_length=15, choices=role, default='patient')
 
     def __str__(self):
-        return self.user.username
+        return self.user.username + " --> " + self.roles
