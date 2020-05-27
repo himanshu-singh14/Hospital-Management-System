@@ -46,11 +46,9 @@ def contact(request):
 # This API is for handle the signup page
 def register(request):
     if request.method == 'POST': 
-        print("1111111111111111111111")
         user_form = UserForm(request.POST)
         profile_form = ProfileForm(request.POST)
         if user_form.is_valid() and profile_form.is_valid():
-            print("2222222222222222222222222")
             user = user_form.save()
             profile = profile_form.save(commit=False)
             profile.user = user
@@ -67,10 +65,8 @@ def register(request):
 
             return HttpResponseRedirect(reverse('user-login'))
         else:
-            print("33333333333333333333333")
             return render(request, 'home/register.html', {'user_form': user_form})
     else:
-        print("44444444444444444444444")
         user_form = UserForm()
         profile_form = ProfileForm()
         context = {'user_form': user_form, 'profile_form': profile_form}

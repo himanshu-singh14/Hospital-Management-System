@@ -6,6 +6,7 @@ from .forms import PatientForm
 from .models import Patient
 from receptionist.models import Appointment
 from hr.models import Payment
+from doctor.models import Prescription
 
 
 def patientProfile(request, username=None):
@@ -17,27 +18,29 @@ def patientProfile(request, username=None):
             patient_form.save()
             return HttpResponseRedirect(reverse('home'))
         else:
-            return render(request, 'patient/profile.html', {'patient_form': patient_form})
+            return render(request, 'patient/profile.html', {'patient_form': patient_form, 'username': username})
     else:
         if user1.username == patient.user.username:
             patient_form = PatientForm(instance=patient)
-            return render(request, 'patient/profile.html', {'patient_form': patient_form})
+            return render(request, 'patient/profile.html', {'patient_form': patient_form, 'username': username})
         else:
             return HttpResponseRedirect(reverse('home'))
 
 
 def patientAppointments(request):
     context = {}
-    context['apps'] = Appointment.objects.filter(doctor=request.user)
+    context['apps'] = Appointment.objects.filter(patient__user__username=request.user).all()
     return render(request, 'patient/patient_appointments.html', context)
 
 
 def invoiceAndPayments(request):
     context = {}
-    context['payments'] = Payment.objects.filter(patient=request.user)
+    context['payments'] = Payment.objects.filter(patient__user__username=request.user).all()
     return render(request, 'patient/invoice_payments.html', context)
 
 
 def medicalHistory(request):
-    pass
+    context = {}
+    context['medi_all'] = Prescription.objects.filter(patient__user__username=request.user).all()
+    return render(request, 'patient/medical_history.html', context)
 

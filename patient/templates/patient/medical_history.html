@@ -1,0 +1,21 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+
+    <h2 class='my-3'>Medical History</h2>
+
+    {% for medi in medi_all %}
+
+        <div class="card my-4" style="width: 40rem;">
+            <div class="card-header">
+            {{medi.date|date:"M d, Y"}}
+            </div>
+            <div class="card-body">
+                <h5 class="card-title"><b>Symptoms : </b>{{medi.symptoms}}</h5>
+                <p class="card-text"><b>Prescriptions : </b>{{medi.prescription}}</p>
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock content %}

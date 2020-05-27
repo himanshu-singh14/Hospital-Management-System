@@ -34,7 +34,7 @@
 
     <div class="row">
         <div class="col-lg-6">
-             <a class="btn btn-secondary my-3" href="" role="button">Create Appointment</a>
+             <a class="btn btn-secondary my-3" href="{% url 'create-appointment' %}" role="button">Create Appointment</a>
                 <table class="table table-hover table-striped">
                     <thead>
                     <tr>
@@ -74,12 +74,12 @@
                     <tbody>
                     {% for patient in patients %}
                     <tr>
-                        <td>{{patient.name}}</td>
+                        <td>{{patient.user.first_name}}</td>
                         <td>{{patient.phone}}</td>
                         <td>{{patient.gender}}</td>
                         <td>{{patient.age}}</td>
                         <td><a class="btn btn-warning btn-sm" href="{% url 'patient-profile' patient.user.username %}" role="button">Update</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="{% url 'delete-patient' user.username %}" role="button">Remove</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="{% url 'delete-patient' patient.user.username %}" role="button">Remove</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>

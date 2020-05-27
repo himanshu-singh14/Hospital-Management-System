@@ -5,6 +5,7 @@ from patient.models import Patient
 from doctor.models import Doctor
 from .models import Payment
 from .forms import PaymentForm
+from django.contrib.auth.models import User
 
 
 def hrDashboard(request):
@@ -33,4 +34,12 @@ def createPayment(request):
     else:
         payment_form = PaymentForm()
         return render(request, 'hr/create_payment.html' , {'payment_form': payment_form})
+
+
+def deleteDoctor(request, username=None):
+    user = get_object_or_404(User, username=username) 
+    user.delete()
+    return HttpResponseRedirect(reverse('hr-dashboard'))
+
+
 

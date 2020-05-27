@@ -55,18 +55,18 @@
         {% if user.profile.roles == 'patient' %}
        
         <li class="nav-item">
-        <a class="nav-link" href="{% url 'patient-appointments' %}">Your Appointment's</a>
+        <a class="nav-link" href="{% url 'patient-appointments' %}">Your Appointments</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="{% url 'invoice-and-payments' %}">Invoice and Payments</a>
+        <a class="nav-link" href="{% url 'invoice-and-payments' %}">Payments</a>
         </li>
         <li class="nav-item">
-        <a class="nav-link" href="">Medical History</a>
+        <a class="nav-link" href="{% url 'medical-history' %}">Medical History</a>
         </li>
         {% else %}
         {% if user.username != 'rubi' and user.username != 'hr' %}
         <li class="nav-item">
-        <a class="nav-link" href="">Appointments</a>
+        <a class="nav-link" href="{% url 'doctor-appointments' %}">Appointments</a>
         </li>
         <li class="nav-item">
         <a class="nav-link" href="{% url 'prescriptions' %}">Prescriptions</a>

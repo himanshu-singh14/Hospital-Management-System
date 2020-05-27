@@ -57,8 +57,8 @@
                         <td>{{doc.status}}</td>
                         <td>{{doc.department}}</td>
                         <td>{{doc.salary}}</td>
-                        <td><a class="btn btn-warning btn-sm" href="{% url 'patient-profile' doc.user.username %}" role="button">Update</a></td>
-                        <td><a class="btn btn-danger btn-sm" href="{% url 'delete-patient' doc.user.username %}" role="button">Remove</a></td>
+                        <td><a class="btn btn-warning btn-sm" href="{% url 'doctor-profile' doc.user.username %}" role="button">Update</a></td>
+                        <td><a class="btn btn-danger btn-sm" href="{% url 'delete-doctor' doc.user.username %}" role="button">Remove</a></td>
                     </tr>
                     {% endfor %}
                     </tbody>

@@ -6,11 +6,15 @@ from patient.forms import PatientForm
 from patient.models import Patient
 from .models import Prescription
 from .forms import PrescriptionForm
+from .models import Doctor
+from  .forms import DoctorForm
+from receptionist.models import Appointment
 
-# Create your views here.
 
 def doctorAppointments(request):
-    pass
+    context = {}
+    context['apps'] = Appointment.objects.filter(doctor__user__username = request.user)
+    return render(request, 'doctor/doctor_appointments.html', context)
 
 
 def prescriptions(request):
@@ -34,20 +38,19 @@ def createPrescriptions(request):
 
 def doctorProfile(request, username=None):
     user1 = get_object_or_404(User, username=username)
-    patient = get_object_or_404(Patient, user__username=user1)  
-      # patient = Patient.objects.filter(user__username = user1)
+    doctor = get_object_or_404(Doctor, user__username=user1)   # patient = Patient.objects.filter(user__username = user1)
     print(user1)
-    print(patient)
+    print(doctor)
     if request.method == 'POST':
-        patient_form = PatientForm(request.POST, instance=patient)
-        if patient_form.is_valid():
-            patient_form.save()
+        doctor_form = DoctorForm(request.POST, instance=doctor)
+        if doctor_form.is_valid():
+            doctor_form.save()
             return HttpResponseRedirect(reverse('home'))
         else:
-            return render(request, 'doctor/profile.html', {'doctor_form': patient_form})
+            return render(request, 'doctor/profile.html', {'doctor_form': doctor_form})
     else:
-        if user1.username == patient.user.username:
-            patient_form = PatientForm(instance=patient)
-            return render(request, 'doctor/profile.html', {'doctor_form': patient_form})
+        if user1.username == doctor.user.username:
+            doctor_form = DoctorForm(instance=doctor)
+            return render(request, 'doctor/profile.html', {'doctor_form': doctor_form})
         else:
             return HttpResponseRedirect(reverse('home'))

@@ -6,6 +6,7 @@ from django.urls import reverse
 from .models import Appointment
 from patient.models import Patient
 from patient.forms import PatientForm
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -14,8 +15,8 @@ def dashboard(request):
     context['apps'] = Appointment.objects.all()
     context['patients'] = Patient.objects.all()
     context['all'] = Appointment.objects.all().count()
-    context['comp'] = Appointment.objects.filter(status="completed").count()
-    context['pen'] = Appointment.objects.filter(status="pending").count()
+    context['comp'] = Appointment.objects.filter(status="Completed").count()
+    context['pen'] = Appointment.objects.filter(status="Pending").count()
     return render(request, 'receptionist/dashboard.html', context)
 
 
@@ -46,13 +47,8 @@ def createPatient(request):
 
 
 def deletePatient(request, username=None):
-    patient = get_object_or_404(Patient, user__username=username)
-    context = {}
-    context['patient'] = patient
-    if request.method == 'POST':
-        patient.delete()
-        return HttpResponseRedirect(reverse('dashboard'))
-    else:
-        return render(request, 'receptionist/dashboard.html', context)
+    user = get_object_or_404(User, username=username) 
+    user.delete()
+    return HttpResponseRedirect(reverse('dashboard'))
 
 
