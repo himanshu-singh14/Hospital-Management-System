@@ -8,98 +8,138 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
-    <title>Docmed</title>
-  </head>
-  <body>
+    <title>Family Care</title>
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
 
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a class="navbar-brand" href="#">Docmed</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+        #page-content {
+            flex: 1 0 auto;
+        }
 
-  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'about' %}">About us</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="{% url 'contact' %}">Contact</a>
-      </li>
+        #sticky-footer {
+            flex-shrink: none;
+        }
 
-      {% if user.is_authenticated %}    {% comment %} request.user.id != None {% endcomment %}
+        .bg-1 {
+            background-color: #1abc9c; 
+            color: #ffffff;
+        }
 
-        {% if user.username == 'rubi' %}
+        .bg-2 {
+            background-color: #474e5d;
+            color: #ffffff;
+        }
 
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
-            </li>   
+        .bg-3 {
+            background-color: #A0A0A0; 
+            color: #ffffff;
+        }
+        }
+    </style>
+</head>
+<body class="d-flex flex-column">
 
-        {% endif %}
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand my-1" href="{% url 'home' %}">Family Care</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-        {% if user.username == 'hr' %}
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
 
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'hr-dashboard' %}">Dashboard</a>
-            </li>   
+                <li class="nav-item active">
+                    <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
 
-            <li class="nav-item">
-            <a class="nav-link" href="{% url 'accounting' %}">Accounting</a>
-            </li>  
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'about' %}">About us</a>
+                </li>
 
-        {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'contact' %}">Contact</a>
+                </li>
 
-        {% if user.profile.roles == 'patient' %}
-       
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'patient-appointments' %}">Your Appointments</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'invoice-and-payments' %}">Payments</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'medical-history' %}">Medical History</a>
-        </li>
-        {% else %}
-        {% if user.username != 'rubi' and user.username != 'hr' %}
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'doctor-appointments' %}">Appointments</a>
-        </li>
-        <li class="nav-item">
-        <a class="nav-link" href="{% url 'prescriptions' %}">Prescriptions</a>
-        </li>
-        {% endif %}
-        {% endif %}
-    </ul>
+                {% if user.is_authenticated %}    {% comment %} request.user.id != None {% endcomment %}
 
-        {% if user.profile.roles == 'patient' %}
-        <span class='mr-3'><a  style='color:white; text-decoration:none;' href="{% url 'patient-profile' request.user.username %}">{{request.user.username}}</a></span>
-        {% else %}
-        <span class='mr-3'><a  style='color:white; text-decoration:none;' href="{% url 'doctor-profile' request.user.username %}">{{request.user.username}}</a></span>
-        {% endif %}
+                    {% if user.profile.roles == 'receptionist' %}
 
-        <form method="POST" action="{% url 'user-logout' %}">
-            {% csrf_token %}
-            <button class="btn btn-danger float-right" type="submit">Logout</button>
-        </form>
-    {% else %}
-    
-      <a class="btn btn-outline-warning float-right my-2 my-sm-0 mr-3" href="{% url 'register' %}">Register</a>
-      <a class="btn btn-outline-success float-right my-2 my-sm-0" href="{% url 'user-login' %}">Login</a>
-    
-    {% endif %}
-    </form>
-  </div>
-</nav>
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'dashboard' %}">Dashboard</a>
+                        </li>   
 
-    <div class="container">
-        {% block content %}
+                    {% elif user.profile.roles == 'hr' %}
 
-        {% endblock content %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'hr-dashboard' %}">Dashboard</a>
+                        </li>   
+
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'accounting' %}">Accounting</a>
+                        </li>  
+
+                    {% elif user.profile.roles == 'patient' %}
+                
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'patient-appointments' %}">Your Appointments</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'invoice-and-payments' %}">Payments</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'medical-history' %}">Medical History</a>
+                        </li>
+
+                    {% else %}
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'doctor-appointments' %}">Appointments</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'prescriptions' %}">Prescriptions</a>
+                        </li>
+        
+                    {% endif %}
+            </ul>
+
+                    {% if user.profile.roles == 'patient' %}
+                        <span class='mr-3'><a  style='color:white; text-decoration:none;' href="{% url 'patient-profile' request.user.username %}">{{request.user.username}}</a></span>
+                    {% else %}
+                        <span class='mr-3'><a  style='color:white; text-decoration:none;' href="{% url 'doctor-profile' request.user.username %}">{{request.user.username}}</a></span>
+                    {% endif %}
+
+                    <form method="POST" action="{% url 'user-logout' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-danger float-right" type="submit">Logout</button>
+                    </form>
+                {% else %}
+        
+                    <a class="btn btn-outline-warning float-right my-2 my-sm-0 mr-3 ml-3" href="{% url 'register' %}">Register</a>
+                    <a class="btn btn-outline-success float-right my-2 my-sm-0" href="{% url 'user-login' %}">Login</a>
+                    
+                {% endif %}
+        </div>
+    </nav>
+
+    <div id="page-content">
+        <div class="container">
+            {% block content %}
+
+            {% endblock content %}
+        </div>
     </div>
+
+    <footer id="sticky-footer" class="py-2 mt-4 bg-secondary text-white">
+        <div class="container text-center">
+        <small>Copyright &copy; This Website Made by: Himanshu Singh</small>
+        </div>
+    </footer>
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -1,7 +1,24 @@
 {% extends 'home/base.html' %}
-
+{% load static %}
 {% block content %}
 
-<h1>This is about</h1>
+<div class="py-5 bg-1 text-center mt-3">
+  <h3 class="pb-1">Who Am I?</h3>
+  <img src="{% static 'home/pic.jpg' %}" class="rounded-circle" alt="Bird" width=200 hight=200>
+  <h3 class="pt-1">I'm a Web Devloper</h3>
+</div>
+
+<div class="py-5 bg-2 text-center">
+  <h3>What Am I?</h3>
+  <p>I am Himanshu Singh and Currently pursuing B.Tech from JECRC, Jaipur.</br>
+I am Django Developer who make this website and know Some basic Concept of Maching Learning.</p>
+</div>
+
+<div class=" py-5 bg-3 text-center">
+  <h3>Where To Find Me?</h3>
+  <p>My LinkedIn Profile : https://www.linkedin.com/in/himanshusingh14/</br>
+    My Github Profile : https://github.com/himanshu-singh14</br>
+    My Phone Number : +917619899169</p>
+</div>
 
 {% endblock content %}
